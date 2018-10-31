@@ -15,7 +15,7 @@
 
 <body>
     <h1>Space Trivia</h1>
-    <div id="display">00</div>
+    <div id="display">59</div>
     <div id="correct">Correct: 0</div>
     <div id="incorrect">Misses: 0</div>
     <div id="notAnswered">Unanswered: 0</div>
@@ -40,11 +40,14 @@
 
     <script src="gamefacts.js"></script>
     <script>
+        var game_running = false;
         var correct = 0;
         var incorrect = 0;
         var missing = 0;
         var game_started = false;
         var time_left;
+        var game_time = 59;
+        var intervalId;
         // random 0 to max-1
         function make_random(max) {
             return Math.floor(Math.random() * (max));
@@ -57,7 +60,7 @@
                 var indx = i + p + 1;
                 var correct = 0;
                 if (p + 1 === 1) correct = 1;
-                astring += '<input type="radio" ' + ' correct=' + correct + ' name="q" id=q' + indx + '>';
+                astring += '<input type="radio" ' + ' correct=' + correct + ' name="q" id=q' + indx + ' class="radio_click">';
                 astring += gameFacts[indx] + " ";
                 p++;
                 if (p >= 4) p = 0;
@@ -66,11 +69,15 @@
             $("#questions").append(astring);
         }
 
-        // call back to finish
-        $("#submit").click(function() {
+        function end_game() {
             var unanswered = 0;
             var correct = 0;
             var wrong = 0;
+            // clean up vars
+            clearInterval(intervalId);
+            game_running = false;
+            game_time = 59;
+            $("#display").text(game_time);
             // go through each question and see if checked
             for (var i = 0; i < gameFacts.length; i += 5) {
                 var checked = false;
@@ -92,6 +99,7 @@
                             wrong++;
                         }
                     }
+                    q.prop("checked", false);
                 }
                 //console.log("done checked " + checked);
                 if (!checked) {
@@ -101,6 +109,31 @@
             $("#correct").text("Correct: " + correct);
             $("#incorrect").text("Misses: " + wrong);
             $("#notAnswered").text("Unanswered: " + unanswered);
+
+        }
+
+        // call back to finish
+        $("#submit").click(function() {
+            if (!game_running) {
+                return;
+            }
+            end_game();
+        });
+
+        function countdown() {
+            game_time--;
+            $("#display").text(game_time);
+            if (game_time === 0) {
+                end_game();
+            }
+        }
+        $(".radio_click").click(function() {
+            if (!game_running) {
+                game_running = true;
+                intervalId = setInterval(function() {
+                    countdown();
+                }, 1000);
+            }
         });
     </script>
 </body>
