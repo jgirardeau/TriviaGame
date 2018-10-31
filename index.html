@@ -14,12 +14,21 @@
 </head>
 
 <body>
-    <h1>Space Trivia</h1>
-    <div id="display">59</div>
-    <div id="correct">Correct: 0</div>
-    <div id="incorrect">Misses: 0</div>
-    <div id="notAnswered">Unanswered: 0</div>
+    <h1 id="space_trivia">Space Trivia</h1>
+
     <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-6">
+                <div id="display">Time left: 59</div>
+                <div id="correct">Correct: 0</div>
+                <div id="incorrect">Misses: 0</div>
+                <div id="notAnswered">Unanswered: 0</div>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-2">
             </div>
@@ -29,7 +38,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-4">
             </div>
             <button id="submit">Submit</button>
         </div>
@@ -77,7 +86,7 @@
             clearInterval(intervalId);
             game_running = false;
             game_time = 59;
-            $("#display").text(game_time);
+            $("#display").text("Time left: " + game_time);
             // go through each question and see if checked
             for (var i = 0; i < gameFacts.length; i += 5) {
                 var checked = false;

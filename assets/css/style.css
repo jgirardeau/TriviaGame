@@ -2,4 +2,24 @@
     box-sizing: border-box;
 }
 
-body {}
+#space_trivia {
+    text-align: center;
+}
+
+
+/* 
+#display {
+    text-align: center;
+}
+
+#correct {
+    text-align: center;
+}
+
+#incorrect {
+    text-align: center;
+}
+
+#notAnswered {
+    text-align: center;
+} */
