@@ -16,6 +16,9 @@
 <body>
     <h1>Space Trivia</h1>
     <div id="display">00</div>
+    <div id="correct">Correct: 0</div>
+    <div id="incorrect">Misses: 0</div>
+    <div id="notAnswered">Unanswered: 0</div>
     <div class="container">
         <div class="row">
             <div class="col-md-2">
@@ -65,18 +68,39 @@
 
         // call back to finish
         $("#submit").click(function() {
+            var unanswered = 0;
+            var correct = 0;
+            var wrong = 0;
             // go through each question and see if checked
             for (var i = 0; i < gameFacts.length; i += 5) {
+                var checked = false;
                 for (var x = 1; x < 5; x++) {
                     var indx = parseInt(i) + parseInt(x);
                     var query_string = "#q" + indx;
-                    console.log(query_string);
+                    // console.log(query_string);
                     var q = $(query_string);
-                    console.log(q.is(":checked"));
-                    console.log(q.attr("checked"));
+                    var is_checked = q.is(":checked");
+                    var is_correct = q.attr("correct");
+                    //console.log(is_checked);
+                    // console.log(q.attr("correct"));
+                    if (is_checked) {
+                        checked = true;
+                        // console.log("Set checked to true");
+                        if (is_correct === "1") {
+                            correct++;
+                        } else {
+                            wrong++;
+                        }
+                    }
+                }
+                //console.log("done checked " + checked);
+                if (!checked) {
+                    unanswered++;
                 }
             }
-
+            $("#correct").text("Correct: " + correct);
+            $("#incorrect").text("Misses: " + wrong);
+            $("#notAnswered").text("Unanswered: " + unanswered);
         });
     </script>
 </body>
