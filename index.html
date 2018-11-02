@@ -22,9 +22,9 @@
             </div>
             <div class="col-md-6">
                 <div id="display">Time left: 59</div>
-                <div id="correct">Correct: 0</div>
-                <div id="incorrect">Misses: 0</div>
-                <div id="notAnswered">Unanswered: 0</div>
+                <div id="answersCorrect">Correct: 0</div>
+                <div id="answersIncorrect">Misses: 0</div>
+                <div id="answersMissing">Unanswered: 0</div>
             </div>
             <div class="col-md-2">
             </div>
@@ -48,103 +48,7 @@
     </div>
 
     <script src="gamefacts.js"></script>
-    <script>
-        var game_running = false;
-        var correct = 0;
-        var incorrect = 0;
-        var missing = 0;
-        var game_started = false;
-        var time_left;
-        var game_time = 59;
-        var intervalId;
-        // random 0 to max-1
-        function make_random(max) {
-            return Math.floor(Math.random() * (max));
-        }
-        // build game html
-        for (var i = 0; i < gameFacts.length; i += 5) {
-            var astring = "<h3>" + gameFacts[i] + "</h3><form>"
-            p = make_random(4);
-            for (var x = 0; x < 4; x++) {
-                var indx = i + p + 1;
-                var correct = 0;
-                if (p + 1 === 1) correct = 1;
-                astring += '<input type="radio" ' + ' correct=' + correct + ' name="q" id=q' + indx + ' class="radio_click">';
-                astring += gameFacts[indx] + " ";
-                p++;
-                if (p >= 4) p = 0;
-            }
-            astring += "</form>";
-            $("#questions").append(astring);
-        }
 
-        function end_game() {
-            var unanswered = 0;
-            var correct = 0;
-            var wrong = 0;
-            // clean up vars
-            clearInterval(intervalId);
-            game_running = false;
-            game_time = 59;
-            $("#display").text("Time left: " + game_time);
-            // go through each question and see if checked
-            for (var i = 0; i < gameFacts.length; i += 5) {
-                var checked = false;
-                for (var x = 1; x < 5; x++) {
-                    var indx = parseInt(i) + parseInt(x);
-                    var query_string = "#q" + indx;
-                    // console.log(query_string);
-                    var q = $(query_string);
-                    var is_checked = q.is(":checked");
-                    var is_correct = q.attr("correct");
-                    //console.log(is_checked);
-                    // console.log(q.attr("correct"));
-                    if (is_checked) {
-                        checked = true;
-                        // console.log("Set checked to true");
-                        if (is_correct === "1") {
-                            correct++;
-                        } else {
-                            wrong++;
-                        }
-                    }
-                    q.prop("checked", false);
-                }
-                //console.log("done checked " + checked);
-                if (!checked) {
-                    unanswered++;
-                }
-            }
-            $("#correct").text("Correct: " + correct);
-            $("#incorrect").text("Misses: " + wrong);
-            $("#notAnswered").text("Unanswered: " + unanswered);
-
-        }
-
-        // call back to finish
-        $("#submit").click(function() {
-            if (!game_running) {
-                return;
-            }
-            end_game();
-        });
-
-        function countdown() {
-            game_time--;
-            $("#display").text(game_time);
-            if (game_time === 0) {
-                end_game();
-            }
-        }
-        $(".radio_click").click(function() {
-            if (!game_running) {
-                game_running = true;
-                intervalId = setInterval(function() {
-                    countdown();
-                }, 1000);
-            }
-        });
-    </script>
 </body>
 
 </html>
