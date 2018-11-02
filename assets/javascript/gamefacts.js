@@ -87,6 +87,7 @@ var intervalId;
 function make_random(max) {
     return Math.floor(Math.random() * (max));
 }
+
 // build game html
 for (var i = 0; i < gameFacts.length; i += 5) {
     var astring = "<h3>" + gameFacts[i] + "</h3><form>"
@@ -149,7 +150,7 @@ function end_game() {
 }
 
 // call back to finish
-$("#submit").click(function() {
+$("#submit").click(function () {
     if (!gameRunning) {
         return;
     }
@@ -163,13 +164,13 @@ function countdown() {
         end_game();
     }
 }
-$(".radio_click").click(function() {
+$(".radio_click").click(function () {
     if (!gameRunning) {
         gameRunning = true;
         $("#answersCorrect").text("Correct: " + 0);
         $("#answersIncorrect").text("Misses: " + 0);
         $("#answersMissing").text("Unanswered: " + 0);
-        intervalId = setInterval(function() {
+        intervalId = setInterval(function () {
             countdown();
         }, 1000);
     }
