@@ -2,24 +2,14 @@
     box-sizing: border-box;
 }
 
+#jumbo {
+    background-color: lightskyblue;
+}
+
 #space_trivia {
     text-align: center;
 }
 
-
-/* 
-#display {
-    text-align: center;
+#last_row {
+    margin-top: 20px;
 }
-
-#correct {
-    text-align: center;
-}
-
-#incorrect {
-    text-align: center;
-}
-
-#notAnswered {
-    text-align: center;
-} */

@@ -1,8 +1,8 @@
 var gameFacts = [
     "First man in space",
     "Yuri Gagarin",
-    "yuri malenchenko",
-    "valeri polyakov",
+    "Yuri malenchenko",
+    "Valeri polyakov",
     "Svetlana Savitskaya",
     "First women in space",
     "Valentina Tereshkova",
@@ -81,7 +81,7 @@ var answersIncorrect = 0;
 var answersMissing = 0;
 var gameStarted = false;
 var timeLeft;
-var gameTime = 59;
+var gameTime = 60;
 var intervalId;
 // random 0 to max-1
 function make_random(max) {
@@ -111,7 +111,7 @@ function end_game() {
     // clean up vars
     clearInterval(intervalId);
     gameRunning = false;
-    gameTime = 59;
+    gameTime = 60;
     $("#display").text("Time left: " + gameTime);
     // go through each question and see if checked
     for (var i = 0; i < gameFacts.length; i += 5) {
@@ -144,6 +144,7 @@ function end_game() {
     $("#answersCorrect").text("Correct: " + answersCorrect);
     $("#answersIncorrect").text("Misses: " + answersIncorrect);
     $("#answersMissing").text("Unanswered: " + answersMissing);
+    window.scrollTo(0, 0);
 
 }
 
@@ -165,6 +166,9 @@ function countdown() {
 $(".radio_click").click(function() {
     if (!gameRunning) {
         gameRunning = true;
+        $("#answersCorrect").text("Correct: " + 0);
+        $("#answersIncorrect").text("Misses: " + 0);
+        $("#answersMissing").text("Unanswered: " + 0);
         intervalId = setInterval(function() {
             countdown();
         }, 1000);
