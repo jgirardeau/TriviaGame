@@ -10,6 +10,14 @@
     text-align: center;
 }
 
-#last_row {
+.last_row {
     margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+body {
+    background-image: url("../images/background.jpg");
+    /* background-size: contain; */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
